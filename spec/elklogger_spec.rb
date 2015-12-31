@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'json/ext'
 
 describe Elklogger do
   it 'has a version number' do
@@ -6,16 +7,16 @@ describe Elklogger do
   end
 
   it 'has a formmatted output' do
-    filename = '/tmp/elklogger_test.log.elk'
+    filename = '/tmp/elklogger_spec.log.elk'
     logger = Elklogger.new(filename)
     logger.info 'hello test!'
     logger.close
 
     file = File.open(filename)
-    reg = /I, \[#{Time.now.strftime('%Y-%m-%d')}#\d+\]  INFO -- : hello test!\n/
-    result = file.readlines.last =~ reg
+    result = JSON.parse file.readlines.last
     file.close
 
-    expect(result).not_to be nil
+    expect(result.keys).to eq %w(body head timestamp)
+    expect(result['head']['counter']).to eq 0
   end
 end
