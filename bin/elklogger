@@ -20,5 +20,5 @@ EOF
     puts "Wrong argument: #{ARGV.first}, type 'elklogger -h' for more help."
   end
 else
-  ElkLogger::Generator.install
+  Elklogger::Generator.install
 end

@@ -1,7 +1,7 @@
 require 'fileutils'
 
 # Install ElkLogger's config file.
-class ElkLogger
+module Elklogger
   class Generator
     def self.install
       src_root = File.dirname(__FILE__)
