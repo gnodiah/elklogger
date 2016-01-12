@@ -1,4 +1,4 @@
-# Elklogger
+# ElkLogger
 
 A formatted logger for ELK-stack.
 
@@ -20,13 +20,28 @@ Or install it yourself as:
 
 ## Usage
 
+First, execute the following command to generate config file:
+
+```shel
+elklogger config:install
+```
+
+then you can use it like this in your ruby source files:
+
 ```ruby
-logger = Elklogger.new('/tmp/filename.log.elk')
-logger.info 'hello logger!'
+logger = ElkLogger.new('/tmp/filename.log.elk') # Create log file, filename MUST be ending with '.elk'
+logger.info 'hello logger!'  # Use 'info' level to log information
 logger.close
 ```
 
-**NOTE:** logfile's postfix MUST BE `.elk`
+**NOTE:** logfile's postfix MUST BE `.elk`, this is important, because only `.elk` files will be supported.
+
+And the supported log levels are (ordered by level ASC):
+
+- debug
+- info
+- warn
+- error
 
 ## Development
 

@@ -1,5 +1,5 @@
 require "elklogger/version"
-require "elklogger/core_ext/object/try"
+require "elklogger/core_ext/object/try" unless defined?(try)
 require 'date'
 require 'json/ext'
 require 'socket'
@@ -14,7 +14,7 @@ class Logger
   end
 end
 
-class Elklogger
+class ElkLogger
 
   module LoggerInfo
     def ruby_pid; $$.to_s; end
@@ -42,7 +42,7 @@ class Elklogger
       app_name ? app_name.strip : 'not-specified'
     end
 
-    # TODO 暂时还没有方案给日期增加数字顺序编号
+    # TODO How to number each line of log files?
     def counter_number
       0
     end

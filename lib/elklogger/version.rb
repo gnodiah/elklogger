@@ -1,5 +1,6 @@
 require 'logger'
 
-class Elklogger < Logger
-  GEM_VERSION = "0.0.2"
+class ElkLogger < Logger
+  SUPER_VERSION = VERSION # keep superclass (Logger) version
+  VERSION = "0.0.3"
 end

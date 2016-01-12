@@ -1,14 +1,14 @@
 require 'spec_helper'
 require 'json/ext'
 
-describe Elklogger do
+describe ElkLogger do
   it 'has a version number' do
-    expect(Elklogger::VERSION).not_to be nil
+    expect(ElkLogger::VERSION).not_to be nil
   end
 
   it 'has a formmatted output' do
     filename = '/tmp/elklogger_spec.log.elk'
-    logger = Elklogger.new(filename)
+    logger = ElkLogger.new(filename)
     logger.info 'hello test!'
     logger.close
 

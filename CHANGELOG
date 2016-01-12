@@ -1,0 +1,4 @@
+VERSION 0.0.3
+  * Don't add +try+ method when it's been defined (such as in a RAILS application).
+  * Change class name to +ElkLogger+ .
+  * Add config generator, now you can use +elklogger config:install+ to generate config file.

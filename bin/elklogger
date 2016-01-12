@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path('../../lib', __FILE__)
+require "#{lib}/elklogger/generator/install_config"
+require "#{lib}/elklogger/version"
+
+if ARGV.size != 1
+  puts "Wrong number of arguments (#{ARGV.size} for 1), type 'elklogger -h' for more help."
+elsif ARGV.first != 'config:install'
+  if ARGV.first == '-h'
+    puts <<-EOF
+Usage:
+  elklogger config:install,    Add elklogger config file
+  elklogger -v,                Show ElkLogger version
+  elklogger -h,                Show help information
+EOF
+  elsif ARGV.first == '-v'
+    puts ElkLogger::VERSION
+  else
+    puts "Wrong argument: #{ARGV.first}, type 'elklogger -h' for more help."
+  end
+else
+  ElkLogger::Generator.install
+end
