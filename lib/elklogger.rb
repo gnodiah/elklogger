@@ -19,8 +19,14 @@ class ElkLogger
   module LoggerInfo
     def ruby_pid; $$.to_s; end
 
+    # In fact, we should record thread's name here. But actually
+    # we don't care about thread name in Ruby, we even more care
+    # about logfile's name. So, here we use logfile name instead
+    # of thread name.
+    # If you want to record thread name, just uncomment the lines
+    # in the following method.
     def thread_name
-      Thread.current.inspect.match(/Thread:\w+/).to_s
+      # Thread.current.inspect.match(/Thread:\w+/).to_s
     end
 
     # def method_name; __callee__; end
@@ -39,7 +45,7 @@ class ElkLogger
 
     def appname
       app_name = defined?(Settings) && Settings.try(:elklogger).try(:appname)
-      app_name ? app_name.strip : 'not-specified'
+      app_name ? app_name.strip : 'elklogger-not-specified'
     end
 
     # TODO How to number each line of log files?
@@ -56,11 +62,12 @@ class ElkLogger
   undef datetime_format=
   undef datetime_format
 
-  attr_reader :calling_mname, :calling_cname
+  attr_reader :calling_mname, :calling_cname, :filename
 
   def initialize(logdev, shift_age = 0, shift_size = 1048576)
     @calling_mname = nil   # calling method name
     @calling_cname = nil   # calling class name
+    @filename = logdev
 
     super(logdev, shift_age, shift_size)
   end
@@ -72,7 +79,7 @@ class ElkLogger
         :app => appname,
         :level => severity,
         :counter => counter_number,
-        :tname => thread_name,
+        :tname => thread_name || filename.to_s.split('/').last.to_s.gsub(/\.log\.elk$/, ''),
         :pid => ruby_pid,
         :mname => calling_mname,
         :cname => calling_cname,
