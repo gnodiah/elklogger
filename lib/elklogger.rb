@@ -99,7 +99,7 @@ class ElkLogger
 
     @calling_cname = caller_info.try(:path).to_s
     if defined?(Rails) && !@calling_cname.empty?
-      @calling_cname = Pathname.new(@calling_cname).relative_path_from(Rails.root)
+      @calling_cname = Pathname.new(@calling_cname).relative_path_from(Rails.root) rescue @calling_cname
     end
     @calling_cname = @calling_cname.to_s + ":#{caller_info.try(:lineno).to_s}"
 

@@ -2,5 +2,5 @@ require 'logger'
 
 class ElkLogger < Logger
   SUPER_VERSION = VERSION # keep superclass (Logger) version
-  VERSION = "0.0.6"
+  VERSION = "0.0.7"
 end
